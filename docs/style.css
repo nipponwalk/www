@@ -1,0 +1,23 @@
+body { font-family: sans-serif; margin: 2em; }
+#results { margin-top: 1em; }
+.result { border-bottom: 1px solid #ccc; padding: 0.5em 0; }
+.result h3 { margin: 0; }
+.markdown { white-space: pre-wrap; background: #f9f9f9; padding: 1em; }
+#license { position: absolute; top: 1em; right: 1em; }
+
+/* Loading spinner */
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #555;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-left: 1em;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

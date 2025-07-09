@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>高度な検索</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="license" style="text-align: right; position: absolute; right: 0; top: 0;">
+  <a href="https://mcp-municipal-bulletin.azurewebsites.net/api/search" style="margin-right: 10px;">MCP</a>
+  <a href="advanced_en.html" style="margin-right: 10px;">English</a>
+</div>
+<h1>高度な検索</h1>
+<p>このページは本リポジトリの Collaborator のみ利用できます。</p>
+<div id="login">
+  <button id="loginBtn">GitHubでログイン</button>
+</div>
+<div id="searchSection" style="display:none">
+  <textarea id="query" placeholder="文章を入力" style="width:80%;height:4em;"></textarea>
+  <button id="searchBtn">検索</button>
+  <button id="downloadBtn" style="display:none">ダウンロード</button>
+  <div id="spinner" class="spinner" style="display:none"></div>
+  <div id="results"></div>
+</div>
+<script src="advanced.js"></script>
+</body>
+</html>

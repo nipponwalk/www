@@ -28,7 +28,7 @@ def fallback_tags(text: str) -> List[str]:
     return seen
 
 
-def run_phi4(text: str) -> Tuple[str, List[str]]:
+def run_slm(text: str) -> Tuple[str, List[str]]:
     text = text.strip().replace('\n', ' ')
     if not text:
         return "", []
@@ -52,7 +52,7 @@ def run_phi4(text: str) -> Tuple[str, List[str]]:
 
 
 def extract_summary_and_tags(text: str) -> Tuple[str, List[str]]:
-    summary, tags = run_phi4(text)
+    summary, tags = run_slm(text)
     if summary or tags:
         return summary, tags
     return fallback_summary(text), fallback_tags(text)

@@ -8,11 +8,11 @@ The contents of the `docs/` folder are published via GitHub Pages. You can acces
 
 [Bulletin Search Page](https://mitsuo-koikawa.github.io/Municipal-Bulletin)
 
-An [advanced search page](https://mitsuo-koikawa.github.io/Municipal-Bulletin/advanced.html) is also available. It requires GitHub authentication and is limited to repository collaborators. Text you provide is analyzed with GitHub Models **Phi4** to find related articles. Access logs are kept on GitHub storage for 30 days.
+An [advanced search page](https://mitsuo-koikawa.github.io/Municipal-Bulletin/advanced.html) is also available. It requires GitHub authentication and is limited to repository collaborators. Text you provide is analyzed with GitHub Models **phi-4-reasoning** to find related articles. Access logs are kept on GitHub storage for 30 days.
 
 ## Updating the Index
 
-CSV files are not automatically indexed. Previously, `.github/workflows/update-index.yml` ran automatically, but to reduce token usage for GitHub Models **Phi4**, indexing is now performed manually. Use `scripts/update_index.py` to generate the index; if it fails, a simplified fallback will be used.
+CSV files are not automatically indexed. Previously, `.github/workflows/update-index.yml` ran automatically, but to reduce token usage for GitHub Models, indexing is now performed manually. Use `scripts/update_index.py` to generate the index; if it fails, a simplified fallback will be used.
 
 ### Manual Execution
 
@@ -22,6 +22,10 @@ python scripts/update_index.py
 ```
 
 Commit the generated `docs/index.json` file.
+
+## Web Crawl Summary
+
+Run `scripts/crawl_sites.py` to fetch recent information from predefined web sites and summarize the pages with GitHub Models. The results are written to `docs/crawl_index.json` and can be searched via the MCP server.
 
 ## CSV Encoding Check
 

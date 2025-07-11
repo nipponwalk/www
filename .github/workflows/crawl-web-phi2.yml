@@ -1,0 +1,37 @@
+name: Crawl web w/ Phi2
+permissions:
+  contents: write
+  models: read
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * 0'
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_MODELS_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Install SLM
+        run: gh extension install github/gh-models
+      - name: Run crawler
+        run: python scripts/search_and_crawl.py
+      - name: Commit results
+        run: |
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@github.com'
+          git add data/web_summary.json
+          if git diff --staged --quiet; then
+            echo 'No changes to commit.'
+          else
+            git commit -m 'Update web crawl summaries'
+            git push
+          fi

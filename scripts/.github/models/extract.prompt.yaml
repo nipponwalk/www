@@ -1,0 +1,19 @@
+﻿name: Extract summary and keywords
+description: Summarize municipal bulletin articles and extract keywords
+model: phi4
+modelParameters:
+  temperature: 0.2
+  maxTokens: 256
+messages:
+  - role: system
+    content: |
+      あなたは地方自治体の広報誌記事から情報を抽出するアシスタントです。
+      与えられたテキストを読み、内容を一文で要約し、重要なキーワードを5個以内で抽出してください。
+      出力は次のJSON形式で返してください。
+      {
+        "summary": "要約",
+        "keywords": ["keyword1", "keyword2", "..."]
+      }
+  - role: user
+    content: "{{text}}"
+    

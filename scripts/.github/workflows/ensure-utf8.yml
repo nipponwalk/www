@@ -1,0 +1,32 @@
+﻿name: Ensure UTF-8 CSV
+permissions:
+  contents: write
+on:
+  push:
+    paths:
+      - 'csv/**.csv'
+  workflow_dispatch:
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install deps
+        run: pip install chardet
+      - name: Convert CSV files to UTF-8
+        run: python scripts/ensure_utf8.py
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@github.com'
+          git add csv/*.csv
+          if git diff --staged --quiet; then
+            echo 'No encoding changes.'
+          else
+            git commit -m 'Convert CSV files to UTF-8'
+            git push
+          fi

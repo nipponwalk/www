@@ -1,0 +1,40 @@
+﻿name: Update index w/ SLM
+permissions:
+  contents: write
+  models: read
+on:
+#  push:
+#    paths:
+#      - 'csv/**.csv'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * 0'  # Every Sunday at 01:00 UTC
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_MODELS_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Install SLM
+        run: gh extension install github/gh-models
+      - name: Build index
+        run: python scripts/update_index.py
+      - name: Commit index
+        run: |
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@github.com'
+          git add docs/index.json
+          if git diff --staged --quiet; then
+            echo 'No changes to commit.'
+          else
+            git commit -m 'Update search index'
+            git push
+          fi

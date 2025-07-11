@@ -28,7 +28,7 @@ def github_user(token: str):
         return r.json()
     return None
 
-def run_phi4(text: str):
+def run_slm(text: str):
     token = os.getenv('GH_MODELS_TOKEN')
     if not token:
         return []
@@ -48,7 +48,7 @@ def run_phi4(text: str):
                 tags = [t.strip() for t in re.split(r'[、,\s]+', tags) if t.strip()]
             return tags
     except Exception as e:
-        print('phi4 error', e)
+        print('slm error', e)
     return []
 
 def expand_groups(words):
@@ -67,7 +67,7 @@ def entry_matches(entry, groups):
     return all(includes_any(text, g) for g in groups)
 
 def search_entries(entries, q):
-    words = run_phi4(q.strip())
+    words = run_slm(q.strip())
     if not words:
         return []
     groups = expand_groups(words)

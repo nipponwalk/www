@@ -1,6 +1,6 @@
 ﻿name: Extract summary and keywords
 description: Summarize municipal bulletin articles and extract keywords
-model: phi4
+model: phi-4-reasoning
 modelParameters:
   temperature: 0.2
   maxTokens: 256
